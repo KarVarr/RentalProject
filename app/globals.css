@@ -1,0 +1,46 @@
+/* Подключаем шрифт */
+:root {
+  --font-russo-one: "Russo One", sans-serif;
+  --font-hanken-grotesk: "Hanken Grotesk", sans-serif;
+}
+
+html, body {
+  background-color: #ffffff;
+  color: rgb(255, 255, 255);
+  overflow-x: hidden; /* Чтобы текст был читаемым */
+}
+
+body {
+  font-family: var(--font-russo-one);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  font-family: var(--font-hanken-grotesk);
+  text-transform: uppercase;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  padding: 15px;
+  z-index: 1000;
+}
+
+main {
+  flex: 1;  /* Растягиваем, чтобы занять доступное пространство */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px; /* Отступ для хедера */
+}
+
+footer {
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: auto;
+}

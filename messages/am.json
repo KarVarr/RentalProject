@@ -1,0 +1,18 @@
+{
+    "home": {
+      "title": "ара вай",
+      "description": "ахпер"
+    },
+    "contact": {
+      "title": "Контакты"
+    },
+    "about": {
+        "title": "О нас"
+    },
+    "amu": {
+        "title": "AMU"
+    }, 
+    "stores": {
+        "title": "Магазины"
+    }
+  }

@@ -1,0 +1,211 @@
+{
+  "nav": {
+      "home": "Home",
+      "about": "About",
+      "shop": "Store",
+      "amu": "ÁMU",
+      "contacts": "Contacts",
+      "letsTalk": "CONTACT US"
+  },
+
+  "home": {
+    "title": "title",
+    "description": "This is a demo website",
+    "buttonBackToHome": "BACK TO HOME"
+  },
+
+  "about": {
+      "title1": "About",
+      "title2": "Us",
+      "title3": "About Us",
+      "titleOurStory": "OUR STORY",
+      "titleOutMission": "OUR MISSION",
+      "mainStory": "TRENDSETTER is an international fashion startup developing a multibrand store offering clothing, footwear, and accessories. Our selection features some of the most popular global brands, including H&M, Reserved, Sinsay, House, and others.",
+      "ourStory": "Since 2023, we’ve been successfully selling on Wildberries, with exclusive supply partnerships. In 2025, we’re stepping into offline retail with the opening of our first store in Yerevan, Armenia.",
+      "ourMission": "To make stylish, high-quality clothing accessible to everyone. Trendsetter is a flexible and ambitious brand, currently building a strong team and actively expanding across the region. We believe fashion should be simple, accessible, and inspiring — every single day.",
+      "establishTitle": "ESTABLISHED",
+      "establishIn": " IN",
+      "buttonViewStore": "View store",
+      "faq": [
+        {
+          "question": "Our Story",
+          "answer": "Since 2023, we’ve been successfully selling on Wildberries, with exclusive supply partnerships. In 2025, we’re stepping into offline retail with the opening of our first store in Armenia."
+        },
+        {
+          "question": "Our Mission",
+          "answer": "To make stylish, high-quality clothing accessible to everyone. Trendsetter is a flexible and ambitious brand, currently building a strong team and actively expanding across the region. We believe fashion should be simple, accessible, and inspiring — every single day."
+        }
+      ]
+  },
+
+  "shop": {
+    "homeTitle": "Your Access to Global Fashion",
+    "homeSubtitle": "Our Store",
+    "homeButtonToTheShop": "To the store",
+    "title1": "Our",
+    "title2": "Store",
+    "title3": "Our Store",
+    "block1": "Trendsetter Á Multibrand is a multibrand fashion store bringing together the world’s most loved clothing brands, such as H&M, Reserved, Sinsay and others.",
+    "block2": "We curate stylish, affordable, and ready-to-wear range that fit your everyday life. Clusively available on Wildberries since 2023 — and now expanding offline in Armenia.",
+    "block3": "Global fashion, local access. Trendsetter makes it easy to wear what you love.",
+    "block4": "We are located at:",
+    "block5": "North avenue 6/2 Tashir street shopping Center, -1 floor, Working hours 10:00-22:00, Tel. 012 202 202 Yerevan, Armenia 0001,",
+    "textForProposal": "Write to us if you have any questions!",
+    "buttonForProposal": "Send message"
+  },
+
+  "amu": {
+    "animationTitle": "Simplicity for people who have a life",
+    "homeTitle": "Our brand",
+    "homeBlock1": "At ÁMU, we specialize in essential everyday wear — timeless pieces that form the foundation of any modern wardrobe.",
+    "homeBlock2": "Inspired by global brands like H&M, Uniqlo, Zara, and Lululemon, we aim to create clothing that blends effortless style, quality, and functionality.",
+    "homeBlock3": "We focus on well-crafted basics that reflect current streetwear trends while staying true to minimalism and practicality.",
+    "homeBlock4": "Our current collection includes:",
+    "homeBlock5": "All items come in solid colors, free from prints or patterns — versatile pieces designed to stay relevant season after season. We provide detailed size guides, including plus-size options, to ensure a great fit and inclusive sizing for everyone.",
+    "homeBlock6": "At ÁMU, we believe in clean, uncompromising style — in wardrobe essentials that move with you and fit every moment of your life.",
+    "homeButtonToTheAMU": "More",
+    "title": "ÁMU",
+    "title1": "Our",
+    "title2": "Brand",
+    "block1TopLeftText": "SIMPLICITY FOR PEOPLE WHO HAVE A LIFE",
+    "block1MiddleText1": "WHO WE",
+    "block1MiddleText2": "ARE?",
+    "block2Project": "PROJECT LOCATION ONLINE: ",
+    "block2Wildberries": "WILDBERRIES",
+    "block2Number1Platform": "(#1 online platform in CIS, #9 globally)",
+    "block2Ranked": "Ranked in the Top 100 Sellers. Over 550k units sold to date.",
+    "block2OurBrandProtfolio": "Our Brand Portfolio",
+    "block2HMaKey": "H&M – A key brand in our portfolio",
+    "block2MSaKay": "Marks & Spencer – Coming soon to our offerings",
+    "block2ProjectLocationOffline": "PROJECT LOCATION OFFLINE (coming soon)",
+    "block2TashirMall": "TASHIR STREET MALL",
+    "block2PartsOfTashir": "Part of the Tashir Group of Companies, generating $1 billion in revenue",
+    "block2Extensive": "Extensive expertise in commercial real estate",
+    "block2Owner": "Owner of the 4 largest shopping malls in Armenia",
+    "block2RetailChain": "Retail Chain Opening",
+    "block2SheduledFor2025": "Scheduled for 2025",
+    "block2FirstStore": "First store opening June 2025",
+    "block2TheStoreWillOperate": "The store will operate as a discounter, offering high-quality clothing and footwear",
+    "block2Aimed": "Aimed at providing affordable prices for the entire family",
+    "block2WhySoBlue": "WHY SO BLUE?",
+    "block3Well": "Well. One more thing.",
+    "block3WeAreReady": "We’re ready to launch our own",
+    "block3ClothingBrand": "Clothing Brand.",
+    "block4BecauseItsAMU": "BECAUSE IT’S ÁMU!",
+    "block5AMUFocuses": "ÁMU focuses on basic bestsellers. Inspired by the brands such as H&M, Uniqlo, Zara and Lululemon, we are committed to delivering essential yet stylish clothing that combines uncompromising quality with streetwear trends. Our current product needs include:",
+    "block5Tshirts": "T-shirts",
+    "block5Sweatshirts": "Sweatshirts",
+    "block5Hoodies": "Hoodies",
+    "block5Joggers": "Joggers",
+    "block5Jeans": "Jeans",
+    "block5Underwear": "Underwear",
+    "block5WeRequireAll": "We require all items to be in plain colors, without additional prints, and to include comprehensive size charts that cover plus sizes. We aim to represent pure, uncompromising style, blending essential, liberating clothing with modern streetwear trends.",
+    "block6LetsWork": "LET’S WORK",
+    "block6Together": "Together"
+  }, 
+
+  "products": {
+    "jeans": "Jeans",
+    "t-shirts": "T-shirts",
+    "hoodies": "Hoodies",
+    "joggers": "Joggers",
+    "sweatshirts": "Sweatshirts",
+    "underwear": "Underwear"
+  },
+
+
+  "blog": {
+    "homeEnterYourEmain": "Enter your email",
+    "homeButtonSubscribe1": "Subscribe Now",
+    "homeButtonSubscribe2": "Subscribe Now",
+    "homePrivicy": " By sending the form you agree to the"
+  },
+
+  "contact": {
+    "homeTitle": "Contacts",
+    "title1": "LET’S",
+    "title2": "GET IN TOUCH!",
+    "title3": "Contacts",
+    "formName": "Name",
+    "formEmail": "Email",
+    "formMessage": "Message",
+    "formButtonSend": "send message",
+    "formPrivicy": " All the fields are required. By sending the form you agree to the",
+    "block1": "We’re always excited to hear from new customers and potential partners. Have a question, feedback, or a partnership inquiry? Just fill out the form, and a member of our team will get back to you as soon as possible",
+    "block2Title": "Prefer to reach us directly?",
+    "block2Phone": "Phone:",
+    "block2Email": "Email: info@trendsetterwb.com",
+    "block2Follow": "Follow us on social media to stay updated on our latest news, collections, and exclusive offers."
+  },
+
+  "footer": {
+    "giftCard": "Gift Card",
+    "buttonBackToTop": "Back to top",
+    "rights": "All rights reserved"
+  },
+
+  "policy": {
+    "privacyPolicy": "Privacy Policy",
+    "close": "Close"
+  },
+
+  "cookie": {
+    "banner": "This website uses cookies to improve functionality and personalize your experience. By continuing to use the site, you agree to the processing of your data.",
+    "button": "Ok"
+  },
+
+  "pageNotFound": {
+    "title": "The page you were looking for could not be found.",
+    "buttonBackToHome": "Back To Home Page"
+  },
+
+  "massageSend": {
+    "setToastMessageDONE": "✅ Message sent successfully!",
+    "setToastMessageERROR": "❌ Error, message not sent: ",
+    "setToastMessageNetERROR": "❌ Network error"
+  },
+
+  "gift": {
+    "title": "LOYALTY PROGRAM AND GIFT CARD",
+    "programTitle": "Loyalty Program and Gift Card Terms and Conditions",
+    "programDescription": "These Terms and Conditions (“Terms”) govern participation in the TRENDSETTER Á MULTIBRAND Loyalty Program and the use of Gift Cards. By enrolling in the Loyalty Program or using a Gift Card, you agree to comply with these Terms.",
+    "generalTitle": "Loyalty Program",
+    "generalTerms": "General Provisions",
+    "generalTermsDescription": "The TRENDSETTER Á MULTIBRAND Loyalty Program (the “Program”) is valid in all TRENDSETTER Á MULTIBRAND physical stores and online at trendsetteramultibrand.com. The Program is managed by TRENDSETTER Á MULTIBRAND (the “Organizer”), which reserves the right to unilaterally amend or terminate the Program or these Terms at any time without prior notice. Participation in the Program implies full and unconditional acceptance of these Terms.",
+    "registrationTitle": "Eligibility and Registration",
+    "registrationDescription": "The Program is open to all individual customers aged 18 and above. Customers are automatically enrolled in the Program upon making a purchase (in-store or online) and providing the required personal details: full name, mobile phone number, date of birth, city of residence, and email address.",
+    "pointsTitle": "Earning and Using Bonus Points",
+    "pointsDescription": "Customers earn 5% of each purchase amount in the form of bonus points (1 point = 1 AMD). Bonus points are credited immediately upon completion of a purchase and appear in the customer’s account.",
+    "suspensionTitle": "Membership Suspension or Cancellation",
+    "suspensionPoint1": "The customer violates these Terms (e.g., fraud, manipulation, or abuse of the Program); or",
+    "suspensionPoint2": "The customer remains inactive for 36 consecutive months, meaning no purchases or logins during that time.",
+    "giftCardsTitle": "Gift Cards",
+    "giftCardsDescription": "Gift Cards are available for purchase only in the Organizer’s physical stores and are not available or redeemable online. The minimum purchase value of a Gift Card is 3,000 AMD. Gift Cards are issued as physical plastic cards, available in three different designs with identical functionality. Customers may choose any design. Gift Cards are sold as standalone products and do not generate bonus points. Gift Cards may be used in full or in part to pay for in-store purchases, in combination with cash or card. The minimum payment using a Gift Card is 1 AMD. Gift Cards are valid for 12 months from the date of purchase. Lost or stolen Gift Cards will not be replaced and are considered forfeited.",
+    "returnsAndCompensationsTitle": "Returns and Refunds",
+    "returnsAndCompensationsDescription": "Purchases made using bonus points or Gift Cards are subject to the Organizer’s standard return and exchange policy.",
+    "returnConditionsTitle": "In case of return:",
+    "returnCondition1": "If bonus points were used for the purchase, the corresponding amount will be re-credited to the customer’s loyalty account.",
+    "returnCondition2": "If a Gift Card was used, the refunded amount will be added back to the same Gift Card.",
+    "returnCondition3": "If the purchase was paid by cash or card, the refund will be processed in accordance with applicable Armenian law.",
+    "bonusPointsPolicyDescription": "Bonus points are not awarded for returned purchases, even if the original transaction initially qualified for points.",
+    "privacyPolicyTitle": "Privacy and Data Protection",
+    "privacyPolicyDescription": "The Organizer processes customers’ personal data solely for the purposes of administering the Program, managing customer accounts, providing personalized offers, and enhancing the overall customer experience.",
+    "collectedDataDescription": "The categories of personal data collected may include, but are not limited to: full name, mobile phone number, email address, date of birth, city of residence, purchase history, and participation in promotions or campaigns.",
+    "dataProtectionDescription": "All personal data is processed securely and stored in accordance with applicable data protection laws of the Republic of Armenia. We implement appropriate technical and organizational measures to protect personal information against unauthorized access, loss, misuse, or disclosure.",
+    "thirdPartySharingTitle": "Personal Data Sharing with Third Parties",
+    "thirdPartySharingPoint1": "When required by applicable law, regulation, or legal process.",
+    "thirdPartySharingPoint2": "To trusted service providers acting on our behalf (e.g., SMS or email communication providers), strictly for the purposes of Program operation, and under data processing agreements that ensure confidentiality and compliance.",
+    "clientRightsDescription": "By registering for the Program, the customer expressly consents to the collection, storage, and processing of their personal data for the above-mentioned purposes. Customers have the right to request access to their data, rectify inaccurate information, or withdraw consent at any time by contacting the Organizer through the official communication channels indicated on our website. In case of consent withdrawal, participation in the Program may be suspended or terminated, as the processing of personal data is mandatory for its operation.",
+    "otherTermsTitle": "Miscellaneous",
+    "otherTermsDescription": "The Organizer is not liable for the loss, theft, damage, unauthorized use, or misuse of Gift Cards or bonus points, including where such incidents occur due to the customer’s negligence (e.g., sharing account access or failing to report a lost card).",
+    "liabilityDisclaimerDescription": "The Organizer makes reasonable efforts to ensure the availability and functionality of the Program and related digital services but does not guarantee uninterrupted or error-free operation. The Organizer shall not be held liable for technical failures, system outages, or data loss caused by events beyond its control, including force majeure, internet disruptions, or third-party service failures.",
+    "serviceDisruptionDescription": "The Organizer is not responsible for any indirect, incidental, or consequential losses arising from participation in the Program or use of Gift Cards, including but not limited to loss of data, lost savings, or missed promotional opportunities.",
+    "indirectLossesDescription": "The Organizer reserves the right to amend, suspend, or terminate these Terms, the Program, or the issuance/use of Gift Cards at any time, at its sole discretion. Updated Terms will be published on the official website. Continued participation in the Program after changes are published constitutes acceptance of the updated Terms.",
+    "changesToTermsDescription": "If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall remain in full force and effect.",
+    "invalidTermsDescription": "These Terms are governed by the laws of the Republic of Armenia. Any disputes, claims, or legal proceedings arising out of or relating to the Program, Gift Cards, or these Terms shall be exclusively resolved by the competent courts of the Republic of Armenia, in accordance with Armenian procedural law.",
+    "homeButton": "To the Home"
+  }
+
+  
+}
+  
