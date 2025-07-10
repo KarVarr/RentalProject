@@ -28,6 +28,7 @@ export default function Header8({ links }) {
     { href: `/${locale}/about`, text: t('nav.about') },
     { href: `/${locale}/shop`, text: t('nav.shop') },
     { href: `/${locale}/amu`, text: t('nav.amu') },
+    { href: `/${locale}/blog`, text: t('nav.blog') },
     { href: `/${locale}/contacts`, text: t('nav.contacts') },
   ];
 
