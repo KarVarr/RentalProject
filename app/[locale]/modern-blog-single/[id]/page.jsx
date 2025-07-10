@@ -288,9 +288,17 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default function ModernBlogPage({ params }) {
-  return <ModernBlogSinglePageClient id={params.id} locale={params.locale} />;
+export default async function ModernBlogSinglePage(props) {
+  const params = await props.params; 
+  const { id, locale } = params;
+
+  return <ModernBlogSinglePageClient id={id} locale={locale} />;
 }
+
+
+// export default function ModernBlogSinglePage({ params }) {
+//   return <ModernBlogSinglePageClient id={params.id} locale={params.locale} />;
+// }
 
 
 // export default function ModernBlogPage(props) {

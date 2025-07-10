@@ -8,6 +8,15 @@ const withNextIntl = require('next-intl/plugin')('./next-intl.config.js');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'fakestoreapi.com',
+        pathname: '/img/**',
+      },
+    ],
+  },
   async redirects() {
     return [
       {

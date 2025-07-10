@@ -1,26 +1,54 @@
+// 'use client';
+// import Pagination from "@/components/common/Pagination";
+// import Footer2 from "@/components/footers/Footer2";
+// // import Header8 from "@/components/headers/Header8";
+// import Form5 from "@/components/newsletterForms/Form5";
+
+// import { blogs12 } from "@/data/blogs";
+
+// // import { modernMultipage } from "@/data/menu";
+// import HeaderWithLocale from "@/components/headers/HeaderWithLocale";
+// // import dynamic from "next/dynamic";
+// import Image from "next/image";
+// import Link from "next/link";
+// import ParallaxContainer from "@/components/common/ParallaxContainer";
+
+// import { useParams } from 'next/navigation';
+// import { useTranslations } from 'next-intl';
+
 'use client';
+// import { blogs12 } from "@/data/blogs";
+import { useEffect, useState } from 'react';
 import Pagination from "@/components/common/Pagination";
 import Footer2 from "@/components/footers/Footer2";
-// import Header8 from "@/components/headers/Header8";
 import Form5 from "@/components/newsletterForms/Form5";
-
-import { blogs12 } from "@/data/blogs";
-
-// import { modernMultipage } from "@/data/menu";
 import HeaderWithLocale from "@/components/headers/HeaderWithLocale";
-// import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import ParallaxContainer from "@/components/common/ParallaxContainer";
-
 import { useParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
+// import { useTranslations } from 'next-intl';
+
+
 
 
 export default function ModernBlogPageClient() {
   const params = useParams();
   const locale = params.locale;
-  const t = useTranslations();
+  // const t = useTranslations();
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <>
       <div className="theme-modern">
@@ -105,29 +133,54 @@ export default function ModernBlogPageClient() {
                   {/* Blog Grid */}
                   <div className="row gx-5 mt-n50 mt-sm-n30 mb-50 mb-sm-30">
                     {/* Post Item */}
-                    {blogs12.map((elm, i) => (
-                      <div
-                        key={i}
-                        className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30"
-                      >
-                        <div className="post-prev-2-img">
-                          <Link href={`./modern-blog-single/${elm.id}`}>
-                            <Image
-                              src={elm.imgSrc}
-                              width={700}
-                              height={479}
-                              alt="Image Description"
-                            />
-                          </Link>
-                        </div>
-                        <h3 className="post-prev-2-title">
-                          <Link href={`./modern-blog-single/${elm.id}`}>
-                            {elm.title}
-                          </Link>
-                        </h3>
-                        <div className="post-prev-2-info">{elm.date}</div>
+                    {/* {blogs12.map((elm, i) => ( */}
+                    {loading ? (
+                      <div>Loading...</div>
+                    ) : (
+                      products.map((elm, i) => (
+
+                    //   <div
+                    //     key={i}
+                    //     className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30"
+                    //   >
+                    //     <div className="post-prev-2-img">
+                    //       <Link href={`./modern-blog-single/${elm.id}`}>
+                    //         <Image
+                    //           src={elm.imgSrc}
+                    //           width={700}
+                    //           height={479}
+                    //           alt="Image Description"
+                    //         />
+                    //       </Link>
+                    //     </div>
+                    //     <h3 className="post-prev-2-title">
+                    //       <Link href={`./modern-blog-single/${elm.id}`}>
+                    //         {elm.title}
+                    //       </Link>
+                    //     </h3>
+                    //     <div className="post-prev-2-info">{elm.date}</div>
+                    //   </div>
+                    // ))
+
+                    <div key={i} className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30">
+                      <div className="post-prev-2-img">
+                        <Link href={`./modern-blog-single/${elm.id}`}>
+                          <Image
+                            src={elm.image}
+                            width={700}
+                            height={479}
+                            alt={elm.title}
+                          />
+                        </Link>
                       </div>
-                    ))}
+                      <h3 className="post-prev-2-title">
+                        <Link href={`./modern-blog-single/${elm.id}`}>
+                          {elm.title}
+                        </Link>
+                      </h3>
+                      <div className="post-prev-2-info">${elm.price}</div>
+                    </div>))
+                    )}
                     {/* End Post Item */}
 
                     {/* End Post Item */}
