@@ -48,7 +48,6 @@ export default function ModernBlogSinglePageClient({ id, locale }) {
   // const params = await props.params;
   // const blog = allBlogs.filter((elm) => elm.id == params.id)[0] || allBlogs[0];
 
-
   //====
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
