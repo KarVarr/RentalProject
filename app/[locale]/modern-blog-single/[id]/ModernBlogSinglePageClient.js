@@ -22,6 +22,8 @@
 
 // import HeaderWithLocale from "@/components/headers/HeaderWithLocale";
 
+
+
 //88888
 'use client';
 import { useEffect, useState } from 'react';
@@ -61,8 +63,10 @@ export default function ModernBlogSinglePageClient({ id, locale }) {
       });
   }, [id]);
 
+
   if (loading) return <div className="container mt-5">Loading...</div>;
 
+  
   return (
     <div className="theme-modern">
       <div className="page" id="top">
