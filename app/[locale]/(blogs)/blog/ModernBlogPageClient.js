@@ -40,14 +40,119 @@ export default function ModernBlogPageClient() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   fetch('https://fakestoreapi.com/products')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setProducts(data);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("➡ fetch start");
+  //   fetch('https://incredible-love-6a2151f21a.strapiapp.com/api/listings?populate=*')
+      
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log('🚀 STRAPI RESPONSE:', data); // ← вот это ключ
+  //       const listings = data.data
+  //         .filter(item => item && item.attributes)
+  //         .map(item => ({
+  //           id: item.id,
+  //           title: item.attributes.title || 'Без названия',
+  //           price: item.attributes.multicurrencyprice?.price_usd || 0,
+  //           image: item.attributes.images?.[0]?.url
+  //             ? `https://incredible-love-6a2151f21a.strapiapp.com${item.attributes.images[0].url}`
+  //             : '/assets/images/default.jpg',
+  //         }));
+  //       setProducts(listings);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.error("Ошибка при получении данных:", err);
+  //       setLoading(false);
+  //     });
+  // }, []);
+  
+
+  // useEffect(() => {
+  //   console.log("➡ fetch start");
+  
+  //   fetch('https://incredible-love-6a2151f21a.strapiapp.com/api/listings?populate=*')
+  //     .then(res => {
+  //       console.log("📥 got response", res.status);
+  //       console.log("📥 Raw response:", res);
+  //       return res.json();
+  //     })
+  //     .then(data => {
+  //       console.log("🚀 STRAPI RESPONSE:", data);
+  
+  //       if (!Array.isArray(data?.data)) {
+  //         console.warn("⚠️ Неправильный формат данных:", data);
+  //         return;
+  //       }
+  
+  //       const listings = data.data
+  //         .filter(item => item && item.attributes)
+  //         .map(item => ({
+  //           id: item.id,
+  //           title: item.attributes.title || 'Без названия',
+  //           price: item.attributes.multicurrencyprice?.price_usd || 0,
+  //           image: item.attributes.images?.data?.[0]?.attributes?.url
+  //             ? `https://incredible-love-6a2151f21a.strapiapp.com${item.attributes.images.data[0].attributes.url}`
+  //             : '/assets/images/default.jpg',
+
+  //         }));
+  
+  //       console.log("🧾 Listings prepared:", listings);
+  //       setProducts(listings);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.error("❌ Ошибка при получении данных:", err);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
+    console.log("➡ fetch start");
+  
+    fetch('https://incredible-love-6a2151f21a.strapiapp.com/api/listings?populate=*')
       .then(res => res.json())
       .then(data => {
-        setProducts(data);
+        console.log("🚀 STRAPI RESPONSE:", data);
+  
+        if (!Array.isArray(data?.data)) {
+          console.warn("⚠️ Неправильный формат данных:", data);
+          return;
+        }
+  
+        const listings = data.data.map(item => ({
+          id: item.documentId,
+          title: item.title || 'Без названия',
+          price: item.multicurrencyprice?.price_usd || 0,
+          area: item.apartment_info?.area || '—',
+          rooms: item.apartment_info?.rooms || '—',
+          city: item.location_info?.city || '—',
+          street: item.location_info?.street || '—',
+          building: item.location_info?.building_number || '—',
+          image: item.images?.[0]?.formats?.thumbnail?.url || item.images?.[0]?.url || '',
+        }));
+        
+        console.log("🧾 Listings prepared (titles only):", listings);
+        setProducts(listings);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("❌ Ошибка при получении данных:", err);
         setLoading(false);
       });
   }, []);
+  
+  
+ 
 
   return (
     <>
@@ -70,7 +175,7 @@ export default function ModernBlogPageClient() {
                 <div className="mb-20">
                   <div className="mb-10">
                     <Link
-                      href="/modern-multi-page"
+                      href={`/${locale}/home`}
                       className="link-hover-anim align-middle"
                       data-btn-animate="y"
                     >
@@ -162,9 +267,51 @@ export default function ModernBlogPageClient() {
                     //   </div>
                     // ))
 
+                    // <div key={i} className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30">
+                    //   <div className="post-prev-2-img">
+                    //     <Link href={`./modern-blog-single/${elm.id}`}>
+                    //       <Image
+                    //         src={elm.image}
+                    //         width={700}
+                    //         height={479}
+                    //         alt={elm.title}
+                    //       />
+                    //     </Link>
+                    //   </div>
+                    //   <h3 className="post-prev-2-title">
+                    //     <Link href={`./modern-blog-single/${elm.id}`}>
+                    //       {elm.title}
+                    //     </Link>
+                    //   </h3>
+                    //   <div className="post-prev-2-info">${elm.price}</div>
+                    // </div>
+
+                    // <div key={i} className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30">
+                    //   <div className="post-prev-2-img">
+                    //     <Link href={`./modern-blog-single/${elm.id}`}>
+                    //       {/* <Image
+                    //         src={elm.image}
+                    //         width={700}
+                    //         height={479}
+                    //         alt={elm.title}
+                    //       /> */}
+                    //     </Link>
+                    //   </div>
+                    //   <h3 className="post-prev-2-title">
+                    //     <Link href={`./modern-blog-single/${elm.id}`}>
+                    //       {elm.title}
+                    //     </Link>
+                    //   </h3>
+                    //   <div className="post-prev-2-info">${elm.price}</div>
+                    // </div>
+
+
                     <div key={i} className="post-prev-2 col-md-6 col-lg-4 mt-50 mt-sm-30">
                       <div className="post-prev-2-img">
-                        <Link href={`./modern-blog-single/${elm.id}`}>
+                        {/* <Link href={`./modern-blog-single/${elm.documentId}`}> */}
+                        <Link href={`/${locale}/modern-blog-single/${elm.id}`}>
+
+                          {/* 👇 Картинку раскомментируешь позже */}
                           <Image
                             src={elm.image}
                             width={700}
@@ -173,14 +320,25 @@ export default function ModernBlogPageClient() {
                           />
                         </Link>
                       </div>
+
                       <h3 className="post-prev-2-title">
                         <Link href={`./modern-blog-single/${elm.id}`}>
                           {elm.title}
                         </Link>
                       </h3>
-                      <div className="post-prev-2-info">${elm.price}</div>
-                    </div>))
-                    )}
+
+                      <div className="post-prev-2-info">
+                        <p>Цена: ${elm.price}</p>
+                        <p>Комнат: {elm.rooms}</p>
+                        <p>Площадь: {elm.area} м²</p>
+                        <p>
+                          Адрес: {elm.city}, ул. {elm.street}, д. {elm.building}
+                        </p>
+                      </div>
+                    </div>
+
+
+                    )))}
                     {/* End Post Item */}
 
                     {/* End Post Item */}

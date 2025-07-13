@@ -39,7 +39,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 
-export default function ModernBlogSinglePageClient({ id, locale }) {
+export default function ModernBlogSinglePageClient({ documentId, locale }) {
 
   // const params = useParams();
   // const locale = params.locale;
@@ -54,19 +54,91 @@ export default function ModernBlogSinglePageClient({ id, locale }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   fetch(`https://fakestoreapi.com/products/${id}`)
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setProduct(data);
+  //       setLoading(false);
+  //     });
+  // }, [id]);
+
+  // useEffect(() => {
+  //   if (!documentId) return;
+  
+  //   console.log("Fetching documentId:", documentId);
+  
+    // fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings/${id}?populate=*`)
+  //   fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`)
+
+
+  //     .then(async res => {
+  //       if (!res.ok) {
+  //         throw new Error("Listing not found");
+  //       }
+  //       const data = await res.json();
+  //       if (!data.data || data.data.length === 0) {
+  //         throw new Error("Listing not found");
+  //       }
+  //       setProduct(data.data[0]); // первый результат
+  //       setLoading(false);
+  //     })
+  //     .catch(err => {
+  //       console.error("Error fetching listing:", err);
+  //       setProduct(null);
+  //       setLoading(false);
+  //     });
+  // }, [documentId]);
+
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setProduct(data);
-        setLoading(false);
-      });
-  }, [id]);
-
-
-  if (loading) return <div className="container mt-5">Loading...</div>;
+    if (!documentId) return;
+  
+    console.log("⛳ documentId:", documentId);
+    
+  
+    fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`)
+      .then(async res => {
+        console.log("🌐 Response status:", res.status);
+        const data = await res.json();
+        console.log("📦 Response data:", data);
+        console.log("🎯 FULL STRAPI RESPONSE:", data);
 
   
+        if (!data.data || data.data.length === 0) {
+          throw new Error("Listing not found");
+        }
+  
+        setProduct(data.data[0]);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("❌ Error fetching listing:", err);
+        setProduct(null);
+        setLoading(false);
+      });
+  }, [documentId]);
+  
+  
+
+  if (loading || !product) return <div>Loading...</div>;
+  // if (loading || !product || !product.attributes) return <div className="container mt-5">Loading...</div>;
+  console.log("✅ product full:", product);
+console.log("📌 attributes:", product.attributes);
+console.log("🔹 title:", product.attributes?.title);
+console.log("🔹 description:", product.attributes?.description);
+console.log("🔹 multicurrencyprice:", product.attributes?.multicurrencyprice);
+console.log("🔹 images:", product.attributes?.images);
+console.log("🔹 location_info:", product.attributes?.location_info);
+console.log("🔹 apartment_info:", product.attributes?.apartment_info);
+
+  const { title, description, multicurrencyprice, images, location_info, apartment_info, category, price     } = product;
+
+  const imageUrl =
+  images?.data?.[0]?.attributes?.formats?.thumbnail?.url ||
+  images?.data?.[0]?.attributes?.url ||
+  '';
+
+
   return (
     <div className="theme-modern">
       <div className="page" id="top">
@@ -82,21 +154,21 @@ export default function ModernBlogSinglePageClient({ id, locale }) {
             <div className="container position-relative z-index-1">
               <div className="mb-20">
                 <div className="mb-10">
-                  <Link href={`/modern-portfolio`} className="link-hover-anim align-middle" data-btn-animate="y">
+                  <Link href={`/${locale}/blog`} className="link-hover-anim align-middle" data-btn-animate="y">
                     <i className="icon-arrow-left2 size-14" /> Back to blog
                   </Link>
                 </div>
                 <hr className="white mt-0 mb-0" />
               </div>
               <h1 className="section-title-large font-alt uppercase mb-0 wow fadeRotateIn">
-                {product.title}
+                {title}
               </h1>
               <div className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp">
                 <div className="d-inline-block me-3">
-                  <i className="mi-folder size-16" /> Category: {product.category}
+                  <i className="mi-folder size-16" /> Category: {category}
                 </div>
                 <div className="d-inline-block me-3">
-                  <i className="mi-dollar size-16" /> Price: ${product.price}
+                  <i className="mi-dollar size-16" /> Price: ${price}
                 </div>
               </div>
             </div>
@@ -104,24 +176,33 @@ export default function ModernBlogSinglePageClient({ id, locale }) {
 
           {/* Section */}
           <section className="page-section">
-            <div className="container relative">
+          <div className="container relative">
               <div className="row">
                 <div className="col-lg-8 mb-md-80">
-                  {/* Product Image */}
-                  <div className="mb-40">
-                    <Image
-                      src={product.image}
-                      alt={product.title}
-                      width={600}
-                      height={600}
-                      style={{ objectFit: "contain" }}
-                    />
-                  </div>
+                  {/* Картинка */}
+                  {imageUrl && (
+                    <div className="mb-40">
+                      <Image
+                        src={imageUrl}
+                        alt={title}
+                        width={800}
+                        height={500}
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
 
-                  {/* Description */}
-                  <p className="lead">{product.description}</p>
+                  {/* Описание */}
+                  <p className="lead">{description}</p>
 
-                  {/* Comments */}
+                  {/* Доп. инфо */}
+                  <p>
+                    <strong>Площадь:</strong> {apartment_info?.area} м²<br />
+                    <strong>Комнат:</strong> {apartment_info?.rooms}<br />
+                    <strong>Адрес:</strong> {location_info?.city}, ул. {location_info?.street}, д. {location_info?.building_number}
+                  </p>
+
+                  {/* Комментарии */}
                   <div className="mb-80 mb-xs-40">
                     <h4 className="blog-page-title">Comments <small className="number">(3)</small></h4>
                     <ul className="media-list comment-list clearlist">

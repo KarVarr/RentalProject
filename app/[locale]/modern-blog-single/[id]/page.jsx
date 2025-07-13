@@ -268,7 +268,8 @@
 import ModernBlogSinglePageClient from './ModernBlogSinglePageClient';
 
 export async function generateMetadata({ params }) {
-  const { locale } = await params;
+  const { locale } = params; 
+
 
   const titles = {
     en: "Apartments",
@@ -289,11 +290,26 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ModernBlogSinglePage(props) {
-  const params = await props.params; 
-  const { id, locale } = params;
+  const { id, locale } = props.params;
 
-  return <ModernBlogSinglePageClient id={id} locale={locale} />;
+  return <ModernBlogSinglePageClient documentId={id} locale={locale} />;
 }
+
+
+
+// export default async function ModernBlogSinglePage(props) {
+//   const { id, locale } = props.params;
+
+//   return <ModernBlogSinglePageClient documentId={id} locale={locale} />;
+// }
+
+
+
+// export default async function ModernBlogSinglePage(props) {
+//   const params = await props.params; 
+//   const { id: documentId, locale } = params;
+//   return <ModernBlogSinglePageClient documentId={documentId} locale={locale} />;
+// }
 
 
 // export default function ModernBlogSinglePage({ params }) {

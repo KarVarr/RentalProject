@@ -12,9 +12,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'fakestoreapi.com',
-        pathname: '/img/**',
+        hostname: 'incredible-love-6a2151f21a.strapiapp.com',
+        pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'incredible-love-6a2151f21a.media.strapiapp.com',
+        pathname: '/**',
+      }
     ],
   },
   async redirects() {
