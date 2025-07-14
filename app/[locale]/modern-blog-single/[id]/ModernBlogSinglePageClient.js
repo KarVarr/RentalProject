@@ -1,488 +1,390 @@
+// // app/[locale]/modern-blog-single/[id]/ModernBlogSinglePageClient.jsx
 // 'use client';
-// import Form7 from "@/components/blog/commentForm/Form7";
-// import Comments from "@/components/blog/Comments";
-// import NewsLetterForm1 from "@/components/blog/newsletterForms/NewsLetterForm1";
-// import Slider3 from "@/components/blog/sliders/Slider3";
-// import Widget1 from "@/components/blog/widgets/Widget1";
-// import Footer2 from "@/components/footers/Footer2";
-//=====
+// import { useEffect, useState } from 'react';
+// import Image from 'next/image';
+// import Link from 'next/link';
+// import Slider3 from '@/components/blog/sliders/Slider3';
 
-// import Header8 from "@/components/headers/Header8";
+// export default function ModernBlogSinglePageClient({ documentId, locale }) {
+//   const [product, setProduct] = useState(null);
+//   const [similar, setSimilar] = useState([]);
+//   const [loading, setLoading] = useState(true);
 
-// import { modernMultipage } from "@/data/menu";
-// import dynamic from "next/dynamic";
-// import { useParams } from 'next/navigation';
-// import { useTranslations } from 'next-intl';
+//   useEffect(() => {
+//     if (!documentId) return;
+  
+//     fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`)
+//       .then(res => res.json())
+//       .then(data => {
+//         const record = data.data[0];
+//         if (!record) throw new Error("No record");
+//         // Учитываем оба варианта: если есть attributes, берём его, иначе сам record
+//         const p = record.attributes ?? record;
+//         console.log("→ Unwrapped p:", p);
+//         setProduct(p);
+//         setLoading(false);
+//         // дальше можно взять p.location_info без ошибок
+//         return fetch(
+//           `https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[location_info][city][$eq]=${encodeURIComponent(p.location_info.city)}&populate=*&pagination[pageSize]=4`
+//         );
+//       })
+//       .then(res => res.json())
+//       .then(simData => {
+//         setSimilar(simData.data ?? []);
+//       })
+//       .catch(err => {
+//         console.error(err);
+//         setLoading(false);
+//       });
+//   }, [documentId]);
+  
 
-//========
-// import Image from "next/image";
-// import Link from "next/link";
-// import ParallaxContainer from "@/components/common/ParallaxContainer";
-// import { allBlogs } from "@/data/blogs";
+//   if (loading || !product) return <div>Loading…</div>;
 
-// import HeaderWithLocale from "@/components/headers/HeaderWithLocale";
+//   const {
+//     title,
+//     description,
+//     multicurrencyprice,
+//     images,
+//     location_info,
+//     apartment_info,
+//     building_info,
+//     features,
+//     contact,
+//   } = product;
+
+//   const sliderImages = (images?.data || []).map((img) => ({
+//     url: img.formats?.thumbnail?.url || img.url,
+//     width: img.width,
+//     height: img.height,
+//   }));
+
+//   return (
+//     <div className="container py-5">
+//       <div className="row">
+//         {/* Slider */}
+//         <div className="col-lg-8 mb-4">
+//           <Slider3 images={sliderImages} />
+//         </div>
+//         {/* Info */}
+//         <div className="col-lg-4">
+//           <div className="border rounded p-4 shadow-sm">
+//             <h2 className="h4 mb-3">{title}</h2>
+//             <p className="h5 text-primary mb-4">
+//               ${multicurrencyprice.price_usd.toLocaleString()}
+//             </p>
+//             <ul className="list-unstyled mb-4">
+//               <li>
+//                 <strong>Площадь:</strong> {apartment_info.area} м²
+//               </li>
+//               <li>
+//                 <strong>Комнат:</strong> {apartment_info.rooms}
+//               </li>
+//               <li>
+//                 <strong>Санузлов:</strong> {apartment_info.bathrooms}
+//               </li>
+//               <li>
+//                 <strong>Этаж:</strong> {apartment_info.floor} /{' '}
+//                 {building_info.floors_total}
+//               </li>
+//               <li>
+//                 <strong>Потолки:</strong> {apartment_info.ceiling_height} м
+//               </li>
+//               {apartment_info.balcony && (
+//                 <li>
+//                   <strong>Балкон:</strong> есть
+//                 </li>
+//               )}
+//               <li>
+//                 <strong>Ремонт:</strong> {apartment_info.renovation_type}
+//               </li>
+//               <li>
+//                 <strong>Мебель:</strong>{' '}
+//                 {apartment_info.furniture ? 'есть' : 'нет'}
+//               </li>
+//               {features.find((f) => f.name === 'wifi') && <li>Wi-Fi</li>}
+//               {features.find((f) => f.name === 'air_conditioner') && (
+//                 <li>Кондиционер</li>
+//               )}
+//             </ul>
+//             <p>
+//               <i className="icon-location me-1" /> {location_info.city}, ул.{' '}
+//               {location_info.street}, д. {location_info.building_number}
+//             </p>
+//             <Link
+//               href={`tel:+${contact?.phone || ''}`}
+//               className="btn btn-primary w-100"
+//             >
+//               Позвонить
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Description */}
+//       <div className="row mt-5">
+//         <div className="col">
+//           <h3>Описание</h3>
+//           <p>{description}</p>
+//         </div>
+//       </div>
+
+//       {/* Similar */}
+//       {similar.length > 0 && (
+//         <div className="row mt-5">
+//           <div className="col">
+//             <h3>Другие предложения в этом районе</h3>
+//           </div>
+//           {similar.map((item, idx) => {
+//             const a = item.attributes;
+//             const thumb =
+//               a.images.data[0]?.attributes.formats?.thumbnail?.url;
+//             return (
+//               <div className="col-md-3 mb-4" key={idx}>
+//                 <div className="card h-100">
+//                   {thumb && (
+//                     <Image
+//                       src={thumb}
+//                       alt={a.title}
+//                       width={300}
+//                       height={200}
+//                       className="card-img-top"
+//                     />
+//                   )}
+//                   <div className="card-body d-flex flex-column">
+//                     <h5 className="card-title fs-sm">{a.title}</h5>
+//                     <p className="card-text mt-auto">
+//                       <strong>
+//                         ${a.multicurrencyprice.price_usd.toLocaleString()}
+//                       </strong>
+//                     </p>
+//                     <Link
+//                       href={`/${locale}/modern-blog-single/${item.documentId}`}
+//                       className="btn btn-outline-primary btn-sm"
+//                     >
+//                       Подробнее
+//                     </Link>
+//                   </div>
+//                 </div>
+//               </div>
+//             );
+//           })}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
 
 
-
-//88888
 'use client';
-import { useEffect, useState } from 'react';
-import Form7 from "@/components/blog/commentForm/Form7";
-import Comments from "@/components/blog/Comments";
-import NewsLetterForm1 from "@/components/blog/newsletterForms/NewsLetterForm1";
-// import Slider3 from "@/components/blog/sliders/Slider3";
-import Widget1 from "@/components/blog/widgets/Widget1";
-import Footer2 from "@/components/footers/Footer2";
-import HeaderWithLocale from "@/components/headers/HeaderWithLocale";
-import ParallaxContainer from "@/components/common/ParallaxContainer";
-import Image from "next/image";
-import Link from "next/link";
 
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+import HeaderWithLocale from '@/components/headers/HeaderWithLocale';
+import ParallaxContainer from '@/components/common/ParallaxContainer';
+import Slider3 from '@/components/blog/sliders/Slider3';
+import Footer2 from '@/components/footers/Footer2';
 
 export default function ModernBlogSinglePageClient({ documentId, locale }) {
-
-  // const params = useParams();
-  // const locale = params.locale;
-  
-  // const t = useTranslations();
-  // const blog = allBlogs.find((elm) => String(elm.id) === String(id)) || allBlogs[0];
-
-  // const params = await props.params;
-  // const blog = allBlogs.filter((elm) => elm.id == params.id)[0] || allBlogs[0];
-
-  //====
   const [product, setProduct] = useState(null);
+  const [similar, setSimilar] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   fetch(`https://fakestoreapi.com/products/${id}`)
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       setProduct(data);
-  //       setLoading(false);
-  //     });
-  // }, [id]);
-
-  // useEffect(() => {
-  //   if (!documentId) return;
-  
-  //   console.log("Fetching documentId:", documentId);
-  
-    // fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings/${id}?populate=*`)
-  //   fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`)
-
-
-  //     .then(async res => {
-  //       if (!res.ok) {
-  //         throw new Error("Listing not found");
-  //       }
-  //       const data = await res.json();
-  //       if (!data.data || data.data.length === 0) {
-  //         throw new Error("Listing not found");
-  //       }
-  //       setProduct(data.data[0]); // первый результат
-  //       setLoading(false);
-  //     })
-  //     .catch(err => {
-  //       console.error("Error fetching listing:", err);
-  //       setProduct(null);
-  //       setLoading(false);
-  //     });
-  // }, [documentId]);
 
   useEffect(() => {
     if (!documentId) return;
-  
-    console.log("⛳ documentId:", documentId);
-    
-  
-    fetch(`https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`)
-      .then(async res => {
-        console.log("🌐 Response status:", res.status);
-        const data = await res.json();
-        console.log("📦 Response data:", data);
-        console.log("🎯 FULL STRAPI RESPONSE:", data);
 
-  
-        if (!data.data || data.data.length === 0) {
-          throw new Error("Listing not found");
-        }
-  
-        setProduct(data.data[0]);
+    fetch(
+      `https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[documentId][$eq]=${documentId}&populate=*`
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        const rec = data.data?.[0];
+        if (!rec) throw new Error('Not found');
+        const p = rec.attributes ?? rec;
+        setProduct(p);
         setLoading(false);
+        return fetch(
+          `https://incredible-love-6a2151f21a.strapiapp.com/api/listings?filters[location_info][city][$eq]=${encodeURIComponent(
+            p.location_info.city
+          )}&populate=*`
+        );
       })
-      .catch(err => {
-        console.error("❌ Error fetching listing:", err);
-        setProduct(null);
+      .then((r) => r.json())
+      .then((data) => {
+        const flat = (data.data || []).map((r) => r.attributes ?? r);
+        setSimilar(flat);
+      })
+      .catch((e) => {
+        console.error(e);
         setLoading(false);
       });
   }, [documentId]);
-  
-  
 
-  if (loading || !product) return <div>Loading...</div>;
-  // if (loading || !product || !product.attributes) return <div className="container mt-5">Loading...</div>;
-  console.log("✅ product full:", product);
-console.log("📌 attributes:", product.attributes);
-console.log("🔹 title:", product.attributes?.title);
-console.log("🔹 description:", product.attributes?.description);
-console.log("🔹 multicurrencyprice:", product.attributes?.multicurrencyprice);
-console.log("🔹 images:", product.attributes?.images);
-console.log("🔹 location_info:", product.attributes?.location_info);
-console.log("🔹 apartment_info:", product.attributes?.apartment_info);
+  if (loading || !product) {
+    return <div className="text-center py-5">Loading…</div>;
+  }
 
-  const { title, description, multicurrencyprice, images, location_info, apartment_info, category, price     } = product;
+  const {
+    title,
+    description,
+    multicurrencyprice,
+    images,
+    location_info,
+    apartment_info,
+    building_info,
+    features,
+    contact,
+  } = product;
 
-  const imageUrl =
-  images?.data?.[0]?.attributes?.formats?.thumbnail?.url ||
-  images?.data?.[0]?.attributes?.url ||
-  '';
-
+  const sliderImages = (images || []).map((img) => ({
+    url: img.formats?.thumbnail?.url || img.url,
+    alt: img.caption || img.name || title,
+  }));
 
   return (
     <div className="theme-modern">
-      <div className="page" id="top">
-        <nav className="main-nav dark transparent stick-fixed wow-menubar">
-          <HeaderWithLocale locale={locale} />
-        </nav>
-        <main id="main">
-          <ParallaxContainer
-            className="page-section pt-90 pb-90 pb-xs-40 bg-dark-alpha-60 parallax-5 light-content"
-            style={{ backgroundImage: "url(/assets/images/demo-modern/section-bg-7.jpg)" }}
-            id="home"
-          >
-            <div className="container position-relative z-index-1">
-              <div className="mb-20">
-                <div className="mb-10">
-                  <Link href={`/${locale}/blog`} className="link-hover-anim align-middle" data-btn-animate="y">
-                    <i className="icon-arrow-left2 size-14" /> Back to blog
+      <nav className="main-nav dark transparent stick-fixed">
+        <HeaderWithLocale locale={locale} />
+      </nav>
+
+      <main id="main">
+        <ParallaxContainer
+          className="page-section pt-90 pb-90 bg-dark-alpha-60 parallax-5 light-content"
+          style={{ backgroundImage: "url(/assets/images/demo-modern/section-bg-7.jpg)" }}
+        >
+          <div className="container position-relative z-index-1">
+            <Link href={`/${locale}/blog`} className="link-hover-anim mb-20 d-inline-block">
+              ← Back to blog
+            </Link>
+            <h1 className="section-title-large font-alt uppercase">{title}</h1>
+          </div>
+        </ParallaxContainer>
+
+        <section className="page-section">
+          <div className="container py-5">
+            <div className="row">
+              {/* ——— Левая колонка: слайдер + детали ——— */}
+              <div className="col-lg-8">
+                {/* Слайдер */}
+                <div className="swiper mb-4">
+                  <Slider3 images={sliderImages} />
+                </div>
+
+                {/* О здании */}
+                <h4>О здании</h4>
+                <dl className="row mb-4">
+                  <dt className="col-sm-4">Тип здания</dt>
+                  <dd className="col-sm-8">{building_info.construction_type}</dd>
+
+                  <dt className="col-sm-4">Новостройка</dt>
+                  <dd className="col-sm-8">{building_info.is_new ? 'Да' : 'Нет'}</dd>
+
+                  <dt className="col-sm-4">Этажей в доме</dt>
+                  <dd className="col-sm-8">{building_info.floors_total}</dd>
+
+                  <dt className="col-sm-4">Лифт</dt>
+                  <dd className="col-sm-8">{building_info.has_elevator ? 'Есть' : 'Нет'}</dd>
+                </dl>
+
+                {/* О квартире */}
+                <h4>О квартире</h4>
+                <dl className="row mb-4">
+                  <dt className="col-sm-4">Площадь</dt>
+                  <dd className="col-sm-8">{apartment_info.area} м²</dd>
+
+                  <dt className="col-sm-4">Комнат</dt>
+                  <dd className="col-sm-8">{apartment_info.rooms}</dd>
+
+                  <dt className="col-sm-4">Санузлов</dt>
+                  <dd className="col-sm-8">{apartment_info.bathrooms}</dd>
+
+                  <dt className="col-sm-4">Этаж</dt>
+                  <dd className="col-sm-8">
+                    {apartment_info.floor} / {building_info.floors_total}
+                  </dd>
+
+                  <dt className="col-sm-4">Потолки</dt>
+                  <dd className="col-sm-8">{apartment_info.ceiling_height} м</dd>
+                </dl>
+
+                {/* Правила проживания */}
+                <h4>Правила проживания</h4>
+                <ul className="mb-4">
+                  <li>Можно с детьми: Да</li>
+                  <li>Можно с животными: По договорённости</li>
+                </ul>
+
+                {/* Условия сделки */}
+                <h4>Условия сделки</h4>
+                <ul className="mb-4">
+                  <li>Коммунальные платежи: Не включены</li>
+                  <li>Предоплата: 1 месяц</li>
+                </ul>
+
+                {/* Описание */}
+                <h4>Описание</h4>
+                <p className="mb-5">{description}</p>
+              </div>
+
+              {/* ——— Правая колонка: инфо-карточка + «Другие предложения» ——— */}
+              <div className="col-lg-4">
+                <div className="border rounded p-4 shadow-sm mb-4">
+                  <h5 className="mb-2">{title}</h5>
+                  <p className="h5 text-primary">${multicurrencyprice.price_usd.toLocaleString()}</p>
+                  <p className="small mt-3">
+                    <i className="icon-location me-1" />
+                    {location_info.city}, ул. {location_info.street}, д. {location_info.building_number}
+                  </p>
+                  <Link href={`tel:${contact?.phone || ''}`} className="btn btn-primary w-100 mt-3">
+                    Позвонить
                   </Link>
                 </div>
-                <hr className="white mt-0 mb-0" />
-              </div>
-              <h1 className="section-title-large font-alt uppercase mb-0 wow fadeRotateIn">
-                {title}
-              </h1>
-              <div className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp">
-                <div className="d-inline-block me-3">
-                  <i className="mi-folder size-16" /> Category: {category}
-                </div>
-                <div className="d-inline-block me-3">
-                  <i className="mi-dollar size-16" /> Price: ${price}
-                </div>
-              </div>
-            </div>
-          </ParallaxContainer>
 
-          {/* Section */}
-          <section className="page-section">
-          <div className="container relative">
-              <div className="row">
-                <div className="col-lg-8 mb-md-80">
-                  {/* Картинка */}
-                  {imageUrl && (
-                    <div className="mb-40">
-                      <Image
-                        src={imageUrl}
-                        alt={title}
-                        width={800}
-                        height={500}
-                        style={{ objectFit: "cover" }}
-                      />
+                {similar.length > 0 && (
+                  <>
+                    <h6 className="mb-3">Другие предложения в этом районе</h6>
+                    <div className="list-group">
+                      {similar.map((item) => {
+                        const thumb =
+                          item.images?.[0]?.formats?.thumbnail?.url || item.images?.[0]?.url;
+                        return (
+                          <Link
+                            key={item.documentId}
+                            href={`/${locale}/modern-blog-single/${item.documentId}`}
+                            className="list-group-item list-group-item-action mb-2 d-flex align-items-center p-2"
+                          >
+                            {thumb && (
+                              <Image
+                                src={thumb}
+                                alt={item.title}
+                                width={80}
+                                height={60}
+                                className="rounded flex-shrink-0"
+                              />
+                            )}
+                            <div className="ms-3 small">
+                              <div className="fw-medium">{item.title}</div>
+                              <div className="text-primary">
+                                ${item.multicurrencyprice.price_usd.toLocaleString()}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
                     </div>
-                  )}
-
-                  {/* Описание */}
-                  <p className="lead">{description}</p>
-
-                  {/* Доп. инфо */}
-                  <p>
-                    <strong>Площадь:</strong> {apartment_info?.area} м²<br />
-                    <strong>Комнат:</strong> {apartment_info?.rooms}<br />
-                    <strong>Адрес:</strong> {location_info?.city}, ул. {location_info?.street}, д. {location_info?.building_number}
-                  </p>
-
-                  {/* Комментарии */}
-                  <div className="mb-80 mb-xs-40">
-                    <h4 className="blog-page-title">Comments <small className="number">(3)</small></h4>
-                    <ul className="media-list comment-list clearlist">
-                      <Comments />
-                    </ul>
-                  </div>
-
-                  <div className="mb-80 mb-xs-40">
-                    <h4 className="blog-page-title">Leave a comment</h4>
-                    <Form7 />
-                  </div>
-                </div>
-
-                {/* Sidebar */}
-                <div className="col-lg-4 col-xl-3 offset-xl-1">
-                  <Widget1 searchInputClass="form-control input-md search-field input-circle" />
-                </div>
+                  </>
+                )}
               </div>
             </div>
-          </section>
+          </div>
+        </section>
+      </main>
 
-          <hr className="mt-0 mb-0" />
-
-          {/* Newsletter */}
-          <section className="small-section">
-            <div className="container">
-              <div className="row wow fadeInUp">
-                <div className="col-lg-8 offset-lg-2">
-                  <h2 className="section-title-tiny mb-30">
-                    <span className="icon-ellipse" /> Subscribe our newsletter
-                  </h2>
-                  <NewsLetterForm1 />
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-
-        <footer className="footer-1 bg-dark-1 light-content">
-          <Footer2 />
-        </footer>
-      </div>
+      <footer className="footer-1 bg-dark-1 light-content">
+        <Footer2 />
+      </footer>
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-//   return (
-//     <>
-//       <div className="theme-modern">
-//         <div className="page" id="top">
-//           <nav className="main-nav dark transparent stick-fixed wow-menubar">
-//             {/* <Header8 links={modernMultipage} /> */}
-//             <HeaderWithLocale locale={locale} />
-//           </nav>{" "}
-//           <main id="main">
-//             <ParallaxContainer
-//               className="page-section pt-90 pb-90 pb-xs-40 bg-dark-alpha-60 parallax-5 light-content"
-//               style={{
-//                 backgroundImage:
-//                   "url(/assets/images/demo-modern/section-bg-7.jpg)",
-//               }}
-//               id="home"
-//             >
-//               <div className="container position-relative z-index-1">
-//                 <div className="mb-20">
-//                   <div className="mb-10">
-//                     <Link
-//                       href={`/modern-portfolio`}
-//                       className="link-hover-anim align-middle"
-//                       data-btn-animate="y"
-//                     >
-//                       <i className="icon-arrow-left2 size-14" /> Back to blog
-//                     </Link>
-//                   </div>
-//                   <hr className="white mt-0 mb-0" />
-//                 </div>
-//                 <h1 className="section-title-large font-alt uppercase mb-0 wow fadeRotateIn">
-//                   {blog.title || blog.postTitle}
-//                 </h1>
-//                 {/* Author, Categories, Comments */}
-//                 <div
-//                   className="blog-item-data mt-30 mt-sm-10 mb-0 wow fadeInUp"
-//                   data-wow-delay="0.2s"
-//                 >
-//                   <div className="d-inline-block me-3">
-//                     <a href="#">
-//                       <i className="mi-clock size-16" />
-//                       <span className="visually-hidden">Date:</span> December 25
-//                     </a>
-//                   </div>
-//                   <div className="d-inline-block me-3">
-//                     <a href="#">
-//                       <i className="mi-user size-16" />
-//                       <span className="visually-hidden">Author:</span> John Doe
-//                     </a>
-//                   </div>
-//                   <div className="d-inline-block me-3">
-//                     <i className="mi-folder size-16" />
-//                     <span className="visually-hidden">Categories:</span>
-//                     <a href="#">Design</a>, <a href="#">Branding</a>
-//                   </div>
-//                   <div className="d-inline-block me-3">
-//                     <a href="#">
-//                       <i className="mi-message size-16" /> 5 Comments
-//                     </a>
-//                   </div>
-//                 </div>
-//                 {/* End Author, Categories, Comments */}
-//               </div>
-//               {/* Scroll Down */}
-//               <div
-//                 className="local-scroll scroll-down-wrap-2 d-none d-lg-block wow fadeInUp"
-//                 data-wow-offset={0}
-//               >
-//                 <div className="full-wrapper text-end">
-//                   <span className="scroll-down-2">
-//                     <Image
-//                       src="/assets/images/demo-modern/arrow-down-1-white.svg"
-//                       alt="Scroll Down"
-//                       width={50}
-//                       height={73}
-//                     />
-//                   </span>
-//                 </div>
-//               </div>
-//               {/* End Scroll Down */}
-//             </ParallaxContainer>
-//             <>
-//               {/* Section */}
-//               <section className="page-section">
-//                 <div className="container relative">
-//                   <div className="row">
-//                     {/* Content */}
-//                     <div className="col-lg-8 mb-md-80">
-//                       {/* Post */}
-//                       <div className="blog-item mb-80 mb-xs-40">
-//                         <div className="blog-item-body">
-//                           {/* Media Gallery */}
-//                           <div className="blog-media mb-40 mb-xs-30">
-//                             <Slider3 />
-//                           </div>
-//                           <p className="lead">
-//                             Morbi lacus massa, euismod ut turpis molestie,
-//                             tristique sodales est. Integer sit amet mi id sapien
-//                             tempor molestie in nec massa. Fusce non ante sed
-//                             lorem rutrum feugiat.
-//                           </p>
-//                           <p>
-//                             Lorem ipsum dolor sit amet, consectetur adipiscing
-//                             elit. Mauris non laoreet dui. Morbi lacus massa,
-//                             euismod ut turpis molestie, tristique sodales est.
-//                             Integer sit amet mi id sapien tempor molestie in nec
-//                             massa.
-//                           </p>
-//                           <p>
-//                             Fusce non ante sed lorem rutrum feugiat. Vestibulum
-//                             pellentesque, purus ut&nbsp;dignissim consectetur,
-//                             nulla erat ultrices purus, ut&nbsp;consequat sem
-//                             elit non sem. Morbi lacus massa, euismod ut turpis
-//                             molestie, tristique sodales est. Integer sit amet mi
-//                             id sapien tempor molestie in nec massa. Fusce non
-//                             ante sed lorem rutrum feugiat.
-//                           </p>
-//                           <blockquote>
-//                             <p>
-//                               Lorem ipsum dolor sit amet, consectetur adipiscing
-//                               elit. Integer posuere erat a&nbsp;ante. Vestibulum
-//                               pellentesque, purus ut dignissim consectetur,
-//                               nulla erat ultrices purus.
-//                             </p>
-//                             <footer>
-//                               Someone famous in
-//                               <cite title="Source Title"> Source Title </cite>
-//                             </footer>
-//                           </blockquote>
-//                           <p>
-//                             Praesent ultricies ut ipsum non laoreet. Nunc ac
-//                             <a href="#">ultricies</a> leo. Nulla ac ultrices
-//                             arcu. Nullam adipiscing lacus in consectetur
-//                             posuere. Nunc malesuada tellus turpis, ac pretium
-//                             orci molestie vel. Morbi lacus massa, euismod ut
-//                             turpis molestie, tristique sodales est. Integer sit
-//                             amet mi id sapien tempor molestie in nec massa.
-//                             Fusce non ante sed lorem rutrum feugiat.
-//                           </p>
-//                           <ul>
-//                             <li>First item of the list</li>
-//                             <li>Second item of the list</li>
-//                             <li>Third item of the list</li>
-//                           </ul>
-//                           <p>
-//                             Lorem ipsum dolor sit amet, consectetur adipiscing
-//                             elit. Mauris non laoreet dui. Morbi lacus massa,
-//                             euismod ut turpis molestie, tristique sodales est.
-//                             Integer sit amet mi id sapien tempor molestie in nec
-//                             massa. Fusce non ante sed lorem rutrum feugiat.
-//                             Vestibulum pellentesque, purus ut&nbsp;dignissim
-//                             consectetur, nulla erat ultrices purus,
-//                             ut&nbsp;consequat sem elit non sem.
-//                           </p>
-//                         </div>
-//                       </div>
-//                       {/* End Post */}
-//                       {/* Comments */}
-//                       <div className="mb-80 mb-xs-40">
-//                         <h4 className="blog-page-title">
-//                           Comments <small className="number">(3)</small>
-//                         </h4>
-//                         <ul className="media-list comment-list clearlist">
-//                           <Comments />
-//                         </ul>
-//                       </div>
-//                       {/* End Comments */}
-//                       {/* Add Comment */}
-//                       <div className="mb-80 mb-xs-40">
-//                         <h4 className="blog-page-title">Leave a comment</h4>
-//                         {/* Form */}
-//                         <Form7 />
-//                         {/* End Form */}
-//                       </div>
-//                       {/* End Add Comment */}
-//                       {/* Prev/Next Post */}
-//                       <div className="clearfix mt-40">
-//                         <a href="#" className="blog-item-more circle left">
-//                           <i className="mi-chevron-left" />
-//                           &nbsp;Prev post
-//                         </a>
-//                         <a href="#" className="blog-item-more circle right">
-//                           Next post&nbsp;
-//                           <i className="mi-chevron-right" />
-//                         </a>
-//                       </div>
-//                       {/* End Prev/Next Post */}
-//                     </div>
-//                     {/* End Content */}
-//                     {/* Sidebar */}
-//                     <div className="col-lg-4 col-xl-3 offset-xl-1">
-//                       {/* Search Widget */}
-//                       <Widget1 searchInputClass="form-control input-md search-field input-circle" />
-//                       {/* End Widget */}
-//                     </div>
-//                     {/* End Sidebar */}
-//                   </div>
-//                 </div>
-//               </section>
-//               {/* End Section */}
-//               {/* Divider */}
-//               <hr className="mt-0 mb-0" />
-//               {/* End Divider */}
-//               {/* Newsletter Section */}
-//               <section className="small-section">
-//                 <div className="container">
-//                   {/* Newsletter Form */}
-//                   <div className="row wow fadeInUp">
-//                     <div className="col-lg-8 offset-lg-2">
-//                       <h2 className="section-title-tiny mb-30">
-//                         <span className="icon-ellipse" /> Subscribe our
-//                         newsletter
-//                       </h2>
-//                       <NewsLetterForm1 />
-//                     </div>
-//                   </div>
-//                   {/* End Newsletter Form */}
-//                 </div>
-//               </section>
-//             </>
-//           </main>
-//           <footer className="footer-1 bg-dark-1 light-content">
-//             <Footer2 />
-//           </footer>
-//         </div>{" "}
-//       </div>
-//     </>
-//   );
-// }
