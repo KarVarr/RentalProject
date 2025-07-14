@@ -131,7 +131,7 @@ console.log("🔹 images:", product.attributes?.images);
 console.log("🔹 location_info:", product.attributes?.location_info);
 console.log("🔹 apartment_info:", product.attributes?.apartment_info);
 
-  const { title, description, multicurrencyprice, images, location_info, apartment_info, category, price } = product;
+  const { title, description, images, location_info, apartment_info, category, price } = product;
 
   const imageUrl =
   images?.data?.[0]?.attributes?.formats?.thumbnail?.url ||

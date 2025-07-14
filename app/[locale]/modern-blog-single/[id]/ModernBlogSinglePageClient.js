@@ -234,7 +234,7 @@ export default function ModernBlogSinglePageClient({ documentId, locale }) {
     location_info,
     apartment_info,
     building_info,
-    features,
+    // features,
     contact,
   } = product;
 
